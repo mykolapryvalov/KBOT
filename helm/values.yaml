@@ -9,6 +9,7 @@ image:
   repository: mykolapryvalov
   tag: "v1.1.0-4cc19ef"
   arch: amd64
+  os: linux
   pullPolicy: IfNotPresent
 
 secret:
