@@ -24,8 +24,7 @@ echo-version:
 
 image:
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
-	docker tag ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH} ${REGISTRY}/${APP}:latest
-
+	
 push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
