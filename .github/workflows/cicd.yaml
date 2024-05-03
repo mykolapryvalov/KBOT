@@ -13,5 +13,5 @@ steps:
         with:
           fetch-depth: 0
 
-- name: Run test
+- name: Run Test
   run: make test
