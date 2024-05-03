@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   registry: "ghcr.io"
   repository: mykolapryvalov
-  tag: "v1.3.0-23848bd"
+  tag: "v1.3.0-02a9ad7"
   arch: amd64
   os: linux
   pullPolicy: IfNotPresent
