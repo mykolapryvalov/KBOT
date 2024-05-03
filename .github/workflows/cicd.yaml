@@ -1,30 +1,43 @@
 name: KBOT-CICD
 
-on: push
- 
+on:
+  push:
+    branches:
+      - develop
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+  
 jobs:
   ci:
     name: CI
-    runs-on: ubuntu-latest     
+    runs-on: ubuntu-latest
 
-    steps:
+    permissions:
+            contents: read
+            packages: write
+
+    steps:                          
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Run Test
+      - name: Run test
         run: make test
 
-      - name: Docker Hub login
-        uses: docker/login-action@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
 
       - name: Build&Push
         env:
           APP: "kbot"
-          REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-        run: make image push TARGETARCH=$TARGETARCH
+          REGISTRY: "${{ env.REGISTRY }}/${{ github.actor }}"
+        run: make image push 
       
